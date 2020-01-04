@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mycode.springshiro.dao.RoleInfoMapper">
+    <resultMap id="BaseResultMap" type="com.mycode.springshiro.pojo.entity.RoleInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="role_code" property="roleCode" jdbcType="VARCHAR"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from role_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.mycode.springshiro.pojo.entity.RoleInfo">
+    insert into role_info (id, role_code, role_name
+      )
+    values (#{id,jdbcType=BIGINT}, #{roleCode,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}
+      )
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.mycode.springshiro.pojo.entity.RoleInfo">
+    update role_info
+    set role_code = #{roleCode,jdbcType=VARCHAR},
+      role_name = #{roleName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select id, role_code, role_name
+    from role_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select id, role_code, role_name
+    from role_info
+  </select>
+    <select id="findUserRole" parameterType="java.lang.Long" resultType="long">
+    select role_id from user_role_rel ur where ur.user_id = #{userId,jdbcType=BIGINT}
+  </select>
+    <select id="findByIdIn" resultMap="BaseResultMap">
+        select id, role_code, role_name
+        from role_info
+        where id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+             #{item}
+        </foreach>
+    </select>
+</mapper>

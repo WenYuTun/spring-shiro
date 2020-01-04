@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mycode.springshiro.dao.PermissionInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.mycode.springshiro.pojo.entity.PermissionInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="perm_code" property="permCode" jdbcType="VARCHAR" />
+    <result column="perm_name" property="permName" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from permission_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mycode.springshiro.pojo.entity.PermissionInfo" >
+    insert into permission_info (id, perm_code, perm_name
+      )
+    values (#{id,jdbcType=BIGINT}, #{permCode,jdbcType=VARCHAR}, #{permName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.mycode.springshiro.pojo.entity.PermissionInfo" >
+    update permission_info
+    set perm_code = #{permCode,jdbcType=VARCHAR},
+      perm_name = #{permName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, perm_code, perm_name
+    from permission_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, perm_code, perm_name
+    from permission_info
+  </select>
+</mapper>
